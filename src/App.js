@@ -1,25 +1,37 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react';
 
-function App() {
+import { FilterSection } from './FilterSection';
+import { Catalog } from './Catalog';
+import { Navbar } from './Navbar';
+
+export const App = () => {
+  const [category, setCategory] = useState(null);
+  const [search, setSearch] = useState('');
+  const [limit, setLimit] = useState(10);
+  const [skip, setSkip] = useState(0);
+  const [filters, setFilters] = useState({ minPrice: 0, maxPrice: 10000, rating: 0 });
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+   
+      <Navbar setCategory={setCategory} />
+      <FilterSection
+        search={search}
+        setSearch={setSearch}
+        limit={limit}
+        setLimit={setLimit}
+        skip={skip}
+        setSkip={setSkip}
+        filters={filters}
+        setFilters={setFilters}
+      />
+      <Catalog
+        category={category}
+        search={search}
+        limit={limit}
+        skip={skip}
+        filters={filters}
+      />
     </div>
   );
-}
-
-export default App;
+};
